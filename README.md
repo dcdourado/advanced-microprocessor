@@ -10,8 +10,7 @@ This Dockerfilecontains exactly the same instructions required by `Linux ARM GNU
 
 Run
 ```bash
-git clone my-repo-url
-cd my-repo-url
+git clone https://github.com/dcdourado/advanced-microprocessor
+cd advanced-microprocessor
 docker build --pull --rm -f "Dockerfile" -t advanced_microprocessor:latest .
 ```
-

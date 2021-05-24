@@ -60,3 +60,5 @@ COPY ./prg-tstriscv1.s .
 
 RUN riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
 RUN riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
+
+# Now you connect to interactive shell mode :) (step 3.b.2)
