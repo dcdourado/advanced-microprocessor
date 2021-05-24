@@ -49,3 +49,9 @@ RUN git clone --recursive https://github.com/riscv/riscv-gnutoolchain
 RUN cd riscv-gnu-toolchain && \
     ./configure --prefix=/opt/riscv --with-arch=rv32imc && \
     make
+
+## Compile and link
+RUN riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
+RUN riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
+
+more prg-tst-riscv1.lst
