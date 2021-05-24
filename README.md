@@ -1,6 +1,6 @@
 # Advanced Microprocessor
 
-This Dockerfilecontains exactly the same instructions required by `Linux ARM GNU Toolchain Tutorial` to get really learning Assembly (step __3.b.2__ and forward).
+This Dockerfilecontains exactly the same instructions required by `Linux ARM GNU Toolchain Tutorial` to get to the part where you really start learning Assembly (step __3.b.2__ and forward).
 
 ## Requirements
 
