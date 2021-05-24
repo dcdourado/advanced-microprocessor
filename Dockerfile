@@ -40,4 +40,12 @@ RUN [ -z "$(apt-get indextargets)" ]
 # See: https://github.com/systemd/systemd/blob/aa0c34279ee40bce2f9681b496922dedbadfca19/src/basic/virt.c#L434
 RUN mkdir -p /run/systemd && echo 'docker' > /run/systemd/container
 
-CMD ["/bin/bash"]
+# Tutorial steps (Advanced Microprocessor)
+## Deps
+RUN sudo apt-get install -Y git autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
+
+## Project config
+RUN git clone --recursive https://github.com/riscv/riscv-gnutoolchain
+RUN cd riscv-gnu-toolchain && \
+    ./configure --prefix=/opt/riscv --with-arch=rv32imc && \
+    make
