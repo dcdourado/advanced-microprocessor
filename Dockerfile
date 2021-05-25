@@ -51,7 +51,7 @@ RUN git clone https://github.com/riscv/riscv-gnu-toolchain
 WORKDIR /riscv-gnu-toolchain
 
 ## Project config
-CMD configure --prefix=/opt/riscv --with-arch=rv32imc
+CMD [ "configure", "--prefix=/opt/riscv", "--with-arch=rv32imc" ]
 
 # Compile and link
 RUN make
@@ -69,10 +69,11 @@ RUN riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
 RUN apt update
 RUN apt install ninja-build
 RUN apt-get install -y pkg-config
-RUN apt install libglib2.0-dev
+RUN apt install -Y libglib2.0-dev
 
 # qemu-riscv32-linux-user
 RUN git clone https://git.qemu.org/git/qemu.git
 RUN cd qemu
 CMD configure --static --disable-system --target-list=riscv32-linux-user
 RUN make
+RUN cp riscv32-linux-user/qemu-riscv64 /usr/bin/qemu-riscv32-static
