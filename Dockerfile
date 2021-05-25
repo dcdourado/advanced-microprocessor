@@ -56,9 +56,23 @@ CMD configure --prefix=/opt/riscv --with-arch=rv32imc
 # Compile and link
 RUN make
 
+RUN export PATH=$PATH:/opt/riscv/bin
+
 COPY ./prg-tstriscv1.s .
 
 RUN riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
 RUN riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
 
 # Now you connect to interactive shell mode :) (step 3.b.2)
+
+# Oh oh.More deps...
+RUN apt update
+RUN apt install ninja-build
+RUN apt-get install -y pkg-config
+RUN apt install libglib2.0-dev
+
+# qemu-riscv32-linux-user
+RUN git clone https://git.qemu.org/git/qemu.git
+RUN cd qemu
+CMD configure --static --disable-system --target-list=riscv32-linux-user
+RUN make
