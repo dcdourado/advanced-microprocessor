@@ -76,4 +76,11 @@ RUN git clone https://git.qemu.org/git/qemu.git
 RUN cd qemu
 CMD configure --static --disable-system --target-list=riscv32-linux-user
 RUN make
-RUN cp riscv32-linux-user/qemu-riscv64 /usr/bin/qemu-riscv32-static
+RUN cd build && cp riscv32-linux-user/qemu-riscv64 /usr/bin/qemu-riscv32-static
+
+# Do the double terminal thing...
+# 1st terminal: cd /riscv-gnu-toolchain
+# qemu-riscv32 -g 10101 ./prg-tst-riscv1
+
+# 2nd terminal: cd /riscv-gnu-toolchain
+# /opt/riscv/bin/riscv32-unknown-elf-gdb
