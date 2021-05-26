@@ -37,5 +37,5 @@ For the sake of testability, we've already have inside the container the assembl
 
 Notes:
 
-- You don't even have to start the qemu, since our [config.sh script](config.sh) already does that.
-- This thing persists as long as you don't explicitly exclude it from your storage (`--rm`) 
+- You don't even have to start the qemu, since our [start.sh script](start.sh) already does that.
+- Files should persist unless you explicitly exclude it from your storage (HD, SSD etc), so don't: `--rm`.
