@@ -66,7 +66,7 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-dev
 
 # Runs our configuration script
-COPY ./config.sh .
-CMD ["/bin/bash", "/app/config.sh"]
+COPY ./docker-config.sh .
+CMD ["/bin/bash", "/app/docker-config.sh"]
 
 # Now you connect to interactive shell mode :) (step 3.b.2)
