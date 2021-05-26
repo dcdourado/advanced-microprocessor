@@ -38,49 +38,35 @@ RUN [ -z "$(apt-get indextargets)" ]
 # See: https://github.com/systemd/systemd/blob/aa0c34279ee40bce2f9681b496922dedbadfca19/src/basic/virt.c#L434
 RUN mkdir -p /run/systemd && echo 'docker' > /run/systemd/container
 
-# Updating packages...
-RUN apt-get update
+WORKDIR /app
 
-# Tutorial steps (Advanced Microprocessor)
-## Deps
-RUN apt-get install -y git autoconf automake autotools-dev curl libmpc-dev libmpfr-dev libgmp-dev gawk build-essential bison flex texinfo gperf libtool patchutils bc zlib1g-dev libexpat-dev
+# Dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    autoconf \
+    automake \
+    autotools-dev \
+    curl \
+    libmpc-dev \
+    libmpfr-dev \
+    libgmp-dev \
+    gawk \
+    build-essential \
+    bison \
+    flex \
+    texinfo \
+    gperf \
+    libtool \
+    patchutils \
+    bc \
+    zlib1g-dev \
+    libexpat-dev \
+    ninja-build \
+    pkg-config \
+    libglib2.0-dev
 
-## Cloning...
-RUN git clone https://github.com/riscv/riscv-gnu-toolchain
-
-WORKDIR /riscv-gnu-toolchain
-
-## Project config
-CMD [ "configure", "--prefix=/opt/riscv", "--with-arch=rv32imc" ]
-
-# Compile and link
-RUN make
-
-RUN export PATH=$PATH:/opt/riscv/bin
-
-COPY ./prg-tstriscv1.s .
-
-RUN riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
-RUN riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
+# Runs our configuration script
+COPY ./config.sh .
+CMD ["/bin/bash", "/app/config.sh"]
 
 # Now you connect to interactive shell mode :) (step 3.b.2)
-
-# Oh oh.More deps...
-RUN apt update
-RUN apt install ninja-build
-RUN apt-get install -y pkg-config
-RUN apt install -Y libglib2.0-dev
-
-# qemu-riscv32-linux-user
-RUN git clone https://git.qemu.org/git/qemu.git
-RUN cd qemu
-CMD configure --static --disable-system --target-list=riscv32-linux-user
-RUN make
-RUN cd build && cp riscv32-linux-user/qemu-riscv64 /usr/bin/qemu-riscv32-static
-
-# Do the double terminal thing...
-# 1st terminal: cd /riscv-gnu-toolchain
-# qemu-riscv32 -g 10101 ./prg-tst-riscv1
-
-# 2nd terminal: cd /riscv-gnu-toolchain
-# /opt/riscv/bin/riscv32-unknown-elf-gdb
