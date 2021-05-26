@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build --pull --rm -f "Dockerfile" -t advanced_microprocessor:latest .
+docker build --pull -f "Dockerfile" -t advanced_microprocessor:latest .
