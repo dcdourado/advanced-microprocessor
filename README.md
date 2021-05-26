@@ -13,9 +13,11 @@ We have to give execute permission to these files, so you should check it out, s
 git clone https://github.com/dcdourado/advanced-microprocessor
 cd advanced-microprocessor
 
+# Execute permissions
 chmod +x bin/volume.sh
 chmod +x bin/build.sh
 chmod +x bin/start.sh
+chmod +x bin/docker-config.sh # We don't run this on host, but the permission is needed to execute inside the container.
 
 # Just the first time! So we can "transfer" code written here to the container
 ./bin/volume.sh
