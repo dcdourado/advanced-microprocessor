@@ -20,26 +20,17 @@ chmod +x bin/start.sh
 # Just the first time! So we can "transfer" code written here to the container
 ./bin/volume.sh
 
-# You can run it after pulling this repo again to get updates. You also should know that this command might take some hours, since it downloads ubuntu docker image, and does all the required installation and configs. I'm not sure if running it again will screw things up.
+# You can run it after pulling this repo again to get updates. This command pulls ubuntu docker image, and does some dependencies installing.
 ./bin/build.sh
-
-# Get things running. You should use this command every time you want to code some riscv assembly.
-./bin/start.sh 
 ```
 
 ## Using
 
-For the sake of testability, we've already have inside the container the assembly program [prg-tst-riscv1.s](prg-tst-riscv1.s), so let's check it out
+For the sake of testability, we've already have inside the container the assembly program [main.s](main.s), so let's check it out
 
-```
-
-
-# Now you are connect to the container
-
-cd /app
-
-riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
-riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
+```bash
+# First time will take some time... So go stretch your legs
+./bin/start.sh 
 ```
 
 Notes:
