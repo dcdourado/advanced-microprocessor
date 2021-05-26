@@ -1,22 +1,21 @@
 #!/bin/bash
 echo "Getting things started..."
-docker run \
-    --name advanced_microprocessor \
-    --mount source=programs_volume,target=/app \
-    advanced_microprocessor:latest
+docker start advanced_microprocessor
 
 echo "Container up!"
 sleep 1
 
 echo "Assemblying..."
-riscv32-unknown-elf-as -gstabs -o prg-tst-riscv1.o prg-tstriscv1.s -a=prg-tst-riscv1.lst
+docker exec advanced_microprocessor \
+    riscv32-unknown-elf-as -gstabs -o main.o main.s -a=main.lst
 
 echo "Linking..."
-riscv32-unknown-elf-ld -g -o prg-tst-riscv1 prg-tst-riscv1.o
+docker exec advanced_microprocessor \
+    riscv32-unknown-elf-ld -g -o main main.o
 
 echo "Executing qemu and gdb over main.s..."
 docker exec advanced_microprocessor  \
-    qemu -g 10101 ./prg-tst-riscv1
+    qemu-riscv32 -g 10101 ./main
 
 echo "gdb main.s"
 docker exec -it advanced_microprocessor |
