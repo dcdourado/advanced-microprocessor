@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Getting things started..."
-docker start advanced_microprocessor
+docker run -d advanced_microprocessor:latest
 
 echo "Container up!"
 sleep 1

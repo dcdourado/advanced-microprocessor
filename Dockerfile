@@ -67,6 +67,6 @@ RUN apt-get update && apt-get install -y \
 
 # Runs our configuration script
 COPY ./bin/docker-config.sh .
-CMD ["/bin/bash", "/app/docker-config.sh"]
+RUN ["/app/docker-config.sh"]
 
 # Now you connect to interactive shell mode :) (step 3.b.2)
